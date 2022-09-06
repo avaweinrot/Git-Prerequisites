@@ -2,15 +2,17 @@
 	import java.io.FileInputStream;
 	import java.io.FileNotFoundException;
 	import java.io.IOException;
-import java.io.PrintWriter;
-import java.security.DigestInputStream;
+	import java.io.PrintWriter;
+	import java.security.DigestInputStream;
 	import java.security.MessageDigest;
 	import java.security.NoSuchAlgorithmException;
 	import java.io.File;
 	import java.nio.charset.Charset;
 	import java.nio.charset.StandardCharsets;
 	import java.nio.file.Files;
+	import java.nio.file.Path;
 	import java.nio.file.Paths;
+
 	
 
 	/**
@@ -21,35 +23,38 @@ import java.security.DigestInputStream;
 	 * Generate a sha1 hash code of a file.
 	 */
 	public class Blob {
+		private String sha1;
 		
-		//call all methods into this
-		//call fileHash
-		//call readFile
-		// call whatever to create new file in correct place
+		//do everything in constructor
 		public Blob(String filePath) throws NoSuchAlgorithmException, FileNotFoundException, IOException{
-			//gets sha one code 
-			String sha1=sha1Code(filePath);
+			//gets sha1 code 
+			sha1=sha1Code(filePath);
 			
 			//stores content of og file
-			String contents= Blob.readFile(filePath, Charset.forName("US-ASCII"));
+			String contents= Blob.readFile(filePath, StandardCharsets.ISO_8859_1);
 			
-			//copies content of og file to a new file			
-			PrintWriter out = new PrintWriter("/Users/caseylandecker/eclipse-workspace/Git\\ Prerequisites/objects"+sha1);
-			out.println(contents);
-			out.close();
-			
-			
-			
-						
-			
+			//copies content of og file to a new file
+			String fileName= "/Users/caseylandecker/eclipse-workspace/Git Prerequisites/objects/"+sha1;
+			Path newFilePath=Paths.get(fileName);
+			//System.out.println(newFilePath.toAbsolutePath());
+			try {
+				Files.writeString(newFilePath, contents, StandardCharsets.ISO_8859_1);
+			}
+			catch(IOException excpetion) {
+				excpetion.printStackTrace();
+				System.out.println(excpetion);
+				System.out.println("Write failed for "+ fileName);
+			}
 		}
-		//Take a file on disk and... 
-		//Creates a SHA1 String given the whole file data
-	    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, FileNotFoundException {
+		
+		public String getSHA1(){
+			return sha1;
+		}
+		
+		//TESTER
+	    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, FileNotFoundException{
 	        Blob fileHash = new Blob("/Users/caseylandecker/Desktop/testfile.txt");
-	        //MUST TAKE IN FILE PATH NOT FILE NAME	        
-
-	   
+	        	        	   
 	    }
 
 	    /**
