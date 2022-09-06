@@ -2,9 +2,16 @@
 	import java.io.FileInputStream;
 	import java.io.FileNotFoundException;
 	import java.io.IOException;
-	import java.security.DigestInputStream;
+import java.io.PrintWriter;
+import java.security.DigestInputStream;
 	import java.security.MessageDigest;
 	import java.security.NoSuchAlgorithmException;
+	import java.io.File;
+	import java.nio.charset.Charset;
+	import java.nio.charset.StandardCharsets;
+	import java.nio.file.Files;
+	import java.nio.file.Paths;
+	
 
 	/**
 	 * User: zeroleaf
@@ -14,22 +21,35 @@
 	 * Generate a sha1 hash code of a file.
 	 */
 	public class Blob {
+		
+		//call all methods into this
+		//call fileHash
+		//call readFile
+		// call whatever to create new file in correct place
+		public Blob(String filePath) throws NoSuchAlgorithmException, FileNotFoundException, IOException{
+			//gets sha one code 
+			String sha1=sha1Code(filePath);
+			
+			//stores content of og file
+			String contents= Blob.readFile(filePath, Charset.forName("US-ASCII"));
+			
+			//copies content of og file to a new file			
+			PrintWriter out = new PrintWriter("/Users/caseylandecker/eclipse-workspace/Git\\ Prerequisites/objects"+sha1);
+			out.println(contents);
+			out.close();
+			
+			
+			
+						
+			
+		}
 		//Take a file on disk and... 
 		//Creates a SHA1 String given the whole file data
 	    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, FileNotFoundException {
-	        Blob fileHash = new Blob();
-	        //MUST TAKE IN FILE PATH NOT FILE NAME
-	        System.out.println(fileHash.sha1Code("/Users/caseylandecker/Desktop/testfile.txt"));
+	        Blob fileHash = new Blob("/Users/caseylandecker/Desktop/testfile.txt");
+	        //MUST TAKE IN FILE PATH NOT FILE NAME	        
 
-	        /*
-	         * Input file name: testfile.txt
-	         * Input file content: (only one line bellow)
-	         * This is a file for test sha1 hash code
-	         *
-	         * Output:
-	         * 7465503EADC8799AE6F64E03EE87AB747B9D08F5
-	         *
-	         */
+	   
 	    }
 
 	    /**
@@ -75,7 +95,13 @@
 	        return sb.toString();
 	    }
 	    
-	 
-	
+	    //READS CONTENTS OF ORIGINAL FILE
+	    public static String readFile(String path, Charset encoding) throws IOException
+	    {
+	        byte[] encoded = Files.readAllBytes(Paths.get(path));
+	        return new String(encoded, encoding);
+	    } 
+	    
+	    	
 
 }
