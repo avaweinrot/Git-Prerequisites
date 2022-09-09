@@ -61,6 +61,7 @@ public class Index {
 		Path path=Paths.get(fileName);
 		System.out.println(path.toAbsolutePath());// file path isn't correct
 		String filePath=""+path.toAbsolutePath();
+		
 		//this now creates the blob
 		Blob fileBlob= new Blob(filePath);
 		map.put(fileName, fileBlob.getSHA1());
