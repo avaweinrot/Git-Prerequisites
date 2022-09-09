@@ -20,6 +20,7 @@ public class Index {
 		Index newIndex=new Index();
 		newIndex.add("sha1Tester.txt");
 		newIndex.add("sha1Tester2.txt");
+		newIndex.remove("sha1Tester.txt");
 		
 	}
 	//
@@ -102,15 +103,14 @@ public class Index {
 		map.remove(fileName);
 		
 		//deletes file
-		/*if ("hash".delete()) {
+		File myObj = new File("objects/"+hash);
+		if (myObj.delete()) {
             System.out.println("File deleted successfully");
         }
         else {
             System.out.println("Failed to delete the file");
-        }*/
-		
-		/*//clears index
-		Files.newInputStream("index", StandardOpenOption.TRUNCATE_EXISTING);
+        }
+
 		
 		//rewrites hashmap to file		  
         BufferedWriter bf = null;
@@ -147,10 +147,10 @@ public class Index {
             catch (Exception e) {
             }
         }
-    }*/	
+    }	
 				
 		
-	}
+	
 }
 	
 
