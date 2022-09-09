@@ -18,19 +18,20 @@ public class Index {
 
 	public static void main (String[]args) throws NoSuchAlgorithmException, FileNotFoundException, IOException {
 		Index newIndex=new Index();
+		newIndex.add("sha1Tester.txt");
+		newIndex.add("sha1Tester2.txt");
+		
 	}
 	//
 	public Index() throws NoSuchAlgorithmException, FileNotFoundException, IOException{
 		//create initial file and folder
-		initialize();
-		add("sha1Tester.txt");
-				
+		initialize();			
     
 	}
 	
 	public void initialize() throws NoSuchAlgorithmException, FileNotFoundException, IOException{
 		//CREATING NEW FILE
-		String fileName= "/Users/caseylandecker/eclipse-workspace/Git Prerequisites/index";		
+		String fileName= "index";
 		Path newFilePath=Paths.get(fileName);
 		//System.out.println(newFilePath.toAbsolutePath());
 
@@ -44,7 +45,7 @@ public class Index {
 		}
 		
 		//CREATING DIRECTORY
-		File f1=new File("objects1");
+		File f1=new File("objects");
 		if (f1.mkdir()) { 
             System.out.println("Directory is created");
         }
@@ -59,20 +60,26 @@ public class Index {
 		//CREATE BLOB FOR A GIVEN FILENAME
 		//first must get path bc this takes in fileName not path
 		Path path=Paths.get(fileName);
-		System.out.println(path.toAbsolutePath());// file path isn't correct
 		String filePath=""+path.toAbsolutePath();
 		
 		//this now creates the blob
 		Blob fileBlob= new Blob(filePath);
+		
+		//adds to hashmap
 		map.put(fileName, fileBlob.getSHA1());
 		
-		//ADD TO HASHMAP
+		//putting into file
 		BufferedWriter bf=null;
 		try {
 			bf=new BufferedWriter(new FileWriter("index"));
-			bf.write(fileName + " : "+ map.get(fileName));
-			bf.newLine();
-			bf.flush();
+			for (Map.Entry<String, String> entry : map.entrySet()) {
+ 
+               // put key and value separated by a colon
+               bf.write(entry.getKey() + " : "+ entry.getValue());
+ 
+               // new line
+               bf.newLine();
+			}
 		}
 		catch (IOException e) {
             e.printStackTrace();
@@ -90,11 +97,62 @@ public class Index {
 	}
 	
 	public void remove(String fileName) {
+		//removes set from hashMap and saves hash
+		String hash=map.get(fileName);
+		map.remove(fileName);
 		
+		//deletes file
+		/*if ("hash".delete()) {
+            System.out.println("File deleted successfully");
+        }
+        else {
+            System.out.println("Failed to delete the file");
+        }*/
 		
+		/*//clears index
+		Files.newInputStream("index", StandardOpenOption.TRUNCATE_EXISTING);
+		
+		//rewrites hashmap to file		  
+        BufferedWriter bf = null;
+  
+        try {
+  
+            // create new BufferedWriter for the output file
+            bf = new BufferedWriter(new FileWriter("index"));
+  
+            // iterate map entries
+            for (Map.Entry<String, String> entry :
+                 map.entrySet()) {
+  
+                // put key and value separated by a colon
+                bf.write(entry.getKey() + " : "
+                         + entry.getValue());
+  
+                // new line
+                bf.newLine();
+            }
+  
+            bf.flush();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+  
+            try {
+  
+                // always close the writer
+                bf.close();
+            }
+            catch (Exception e) {
+            }
+        }
+    }*/	
+				
 		
 	}
-	
+}
 	
 
-}
+
+
