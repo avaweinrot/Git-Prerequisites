@@ -14,18 +14,9 @@
 	import java.nio.file.Paths;
 
 	
-
-	/**
-	 * User: zeroleaf
-	 * Date: 13-10-3
-	 * Time: 21:04
-	 *
-	 * Generate a sha1 hash code of a file.
-	 */
 	public class Blob {
 		private String sha1;
 		
-		//do everything in constructor
 		public Blob(String filePath) throws NoSuchAlgorithmException, FileNotFoundException, IOException{
 			//gets sha1 code 
 			sha1=sha1Code(filePath);
@@ -35,16 +26,22 @@
 			
 			//copies content of og file to a new file
 			String fileName= "/Users/caseylandecker/eclipse-workspace/Git Prerequisites/objects/"+sha1;
+			
 			Path newFilePath=Paths.get(fileName);
-			//System.out.println(newFilePath.toAbsolutePath());
+			System.out.println(newFilePath.toAbsolutePath());
 			try {
 				Files.writeString(newFilePath, contents, StandardCharsets.ISO_8859_1);
+				String testContent=Files.readString(newFilePath);			
+				
 			}
 			catch(IOException excpetion) {
 				excpetion.printStackTrace();
 				System.out.println(excpetion);
 				System.out.println("Write failed for "+ fileName);
 			}
+
+			
+			
 		}
 		
 		public String getSHA1(){
@@ -56,7 +53,8 @@
 	        Blob fileHash = new Blob("/Users/caseylandecker/Desktop/testfile.txt");
 	        	        	   
 	    }
-
+	    
+	    //CODE FOR GETTING SHA1
 	    /**
 	     * Generate a file 's sha1 hash code.
 	     * @param filePath file path
@@ -100,7 +98,7 @@
 	        return sb.toString();
 	    }
 	    
-	    //READS CONTENTS OF ORIGINAL FILE
+	    //CODE TO READ CONTENTS OF ORIGINAL FILE
 	    public static String readFile(String path, Charset encoding) throws IOException
 	    {
 	        byte[] encoded = Files.readAllBytes(Paths.get(path));
