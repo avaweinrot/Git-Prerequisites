@@ -20,7 +20,10 @@ public class Index {
 		Index newIndex=new Index();
 		newIndex.add("sha1Tester.txt");
 		newIndex.add("sha1Tester2.txt");
+		newIndex.add("sha1Tester3.txt");
+		
 		newIndex.remove("sha1Tester.txt");
+		newIndex.remove("sha1Tester3.txt");
 		
 	}
 	//
