@@ -16,16 +16,17 @@ public class Index {
 	HashMap<String, String> map= new HashMap<String, String>();
 
 
-	public static void main (String[]args) throws NoSuchAlgorithmException, FileNotFoundException, IOException {
-//		Index newIndex=new Index();
-//		newIndex.add("sha1Tester.txt");
-//		newIndex.add("sha1Tester2.txt");
-//		newIndex.add("sha1Tester3.txt");
-//		
-//		newIndex.remove("sha1Tester.txt");
-//		newIndex.remove("sha1Tester3.txt");
+	/*public static void main (String[]args) throws NoSuchAlgorithmException, FileNotFoundException, IOException {
+
+		Index newIndex=new Index();
+		newIndex.add("sha1Tester.txt");
+		newIndex.add("sha1Tester2.txt");
+		newIndex.add("sha1Tester3.txt");
 		
-	}
+		newIndex.remove("sha1Tester.txt");
+		newIndex.remove("sha1Tester3.txt");
+		
+	}*/
 	//
 	public Index() throws NoSuchAlgorithmException, FileNotFoundException, IOException{
 		//create initial file and folder

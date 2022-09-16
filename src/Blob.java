@@ -38,9 +38,7 @@
 				excpetion.printStackTrace();
 				System.out.println(excpetion);
 				System.out.println("Write failed for "+ fileName);
-			}
-
-			
+			}			
 			
 		}
 		
