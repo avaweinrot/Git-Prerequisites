@@ -50,7 +50,7 @@
 	    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, FileNotFoundException{
 	       //ADDED TRY CATCH
 	    	try {
-	        	Blob fileHash = new Blob("/Users/caseylandecker/Desktop/testfile.txt");
+	        	Blob fileHash = new Blob("objects/sha1Tester.txt");
 	        }
 	        catch (Exception e) {
 	        	System.out.println("Blob couldn't find file");

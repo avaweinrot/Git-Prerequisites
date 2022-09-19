@@ -39,6 +39,13 @@ class CaseyTester {
 		testAdd();
 	}
 	
+	@Test
+	void testBlob() throws NoSuchAlgorithmException, FileNotFoundException, IOException {
+		Blob blobby=new Blob("sha1Tester.txt");
+		File file = new File("objects/0f1defd5135596709273b3a1a07e466ea2bf4fff");
+		assertTrue(file.exists());
+	}
+	
 	void testInitialize() throws NoSuchAlgorithmException, FileNotFoundException, IOException {
 		Index g = new Index();
 		g.initialize();
