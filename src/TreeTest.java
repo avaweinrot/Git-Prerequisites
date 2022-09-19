@@ -8,6 +8,7 @@ class TreeTest {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		
 	}
 
 	@AfterAll

@@ -21,7 +21,7 @@ public class Commit {
 	private String pTree="";
 	private String contents="";
 	private String parent=""; 
-	private String nextCommit="";
+	
 	
 	public Commit(String pTr, String summ, String au, String par) throws IOException {
 		pTree=pTr;
@@ -72,12 +72,9 @@ public class Commit {
 		if(!parent.equals("")) {
 			contents+="objects/"+parent;
 		}
-		contents+="\n";
+		contents+="\n"+"\n";
 		
-		if(!nextCommit.equals("")) {
-			contents+="objects/"+nextCommit;
-		}
-		contents+="\n"+author+"\n"+ getDate() + "\n"+summary;	
+		contents+=author+"\n"+ getDate() + "\n"+summary;	
 		return contents;
 		
 	}
@@ -98,9 +95,9 @@ public class Commit {
 		
     }
 	public static void main (String[]args) throws IOException {
-		//Commit com1=new Commit("pTree", "summary 1", "Casey Landecker", "");
-		//Commit com2=new Commit("pTree2", "summary 2", "Casey Landecker", "174ff82235d9fa8418bbd1ae8bf58969c9a12eef");
-		Commit com3=new Commit("pTree3", "summary 3", "Casey Landecker", "bbfd64feca61251fd3e05615ffe50e1b2ebbe435");
+		Commit com1=new Commit("pTree", "summary 1", "Casey Landecker", "");
+		Commit com2=new Commit("pTree2", "summary 2", "Casey Landecker", "9f95d9dc8a04721c58b9912c0ed9ac84ad46f5d6");
+		Commit com3=new Commit("pTree3", "summary 3", "Casey Landecker", "1fb2c6c15d31f11a2e5955f56c5008028ceb8fae");
 	}
 	
 	public String getDate() {

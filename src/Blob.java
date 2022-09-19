@@ -47,7 +47,7 @@
 		}
 		
 		//TESTER
-	    /*public static void main(String[] args) throws IOException, NoSuchAlgorithmException, FileNotFoundException{
+	    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, FileNotFoundException{
 	       //ADDED TRY CATCH
 	    	try {
 	        	Blob fileHash = new Blob("/Users/caseylandecker/Desktop/testfile.txt");
@@ -56,7 +56,7 @@
 	        	System.out.println("Blob couldn't find file");
 	        }
 	        	        	   
-	    }*/
+	    }
 	    
 	    //CODE FOR GETTING SHA1
 	    /**
