@@ -25,7 +25,7 @@
 			String contents= Blob.readFile(filePath, StandardCharsets.ISO_8859_1);
 			
 			//copies content of og file to a new file
-			String fileName= "/Users/caseylandecker/eclipse-workspace/Git Prerequisites/objects/"+sha1;
+			String fileName= "objects/"+sha1;
 			
 			Path newFilePath=Paths.get(fileName);
 			System.out.println(newFilePath.toAbsolutePath());
