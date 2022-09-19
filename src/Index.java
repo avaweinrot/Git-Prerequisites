@@ -27,7 +27,7 @@ public class Index {
 		newIndex.remove("sha1Tester3.txt");
 		
 	}*/
-	//
+	
 	public Index() throws NoSuchAlgorithmException, FileNotFoundException, IOException{
 		//create initial file and folder
 		initialize();			

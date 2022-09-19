@@ -9,13 +9,22 @@ import java.util.ArrayList;
 import java.util.Formatter;
 
 public class Tree {
-
+	
+	//FINISH THIS TESTER
 	public static void main(String[] args) throws IOException {
-		ArrayList<String> listy = new ArrayList<String>();
-		listy.add("blob : eb07e0a104e3d1b9220b49fcbd36a03428414ac1");
-		listy.add("tree : f65ab9ebff94f507b1b67b225b369068681ec8bb");
-		Tree eltri = new Tree(listy);
-	}
+	
+			ArrayList<String> array= new ArrayList<String>();
+			array.add("blob : 81e0268c84067377a0a1fdfb5cc996c93f6dcf9f");
+			array.add("blob : 01d82591292494afd1602d175e165f94992f6f5f");
+			array.add("blob : f1d82236ab908c86ed095023b1d2e6ddf78a6d83");
+			array.add("tree : bd1ccec139dead5ee0d8c3a0499b42a7d43ac44b");
+			array.add("tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976");
+			Tree tree=new Tree(array);
+			//check that file name is valid SHA1
+			//check that 
+						
+		}
+	
 	
 	ArrayList<String> list = new ArrayList<String>();
 	String addedUp;
