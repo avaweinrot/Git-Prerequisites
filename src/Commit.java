@@ -20,6 +20,7 @@ public class Commit {
 	private String author="";
 	private String pTree="";
 	private String contents="";
+	private String shaContents = ""; 
 	private String parent=""; 
 	
 	
@@ -79,6 +80,17 @@ public class Commit {
 		
 	}
 	
+	public String getFileContentsForSHA(){
+		if(!parent.equals("")) {
+			shaContents+="objects/"+parent;
+		}
+		shaContents+="\n"+"\n";
+		
+		shaContents+=author+"\n"+ getDate() + "\n"+summary;	
+		return shaContents;
+		
+	}
+	
 	public static String generateSHA1(String st) throws IOException {
 		String str=st;
 		String SHA="";
@@ -110,7 +122,7 @@ public class Commit {
 	
 	public void writeFile() throws IOException {
 		//creating new file
-		String fileName= generateSHA1(contents);// file name is sha1
+		String fileName= generateSHA1(shaContents);// file name is sha1
 		Path newFilePath=Paths.get("objects/"+fileName);
 		//System.out.println(newFilePath.toAbsolutePath());
 
