@@ -59,6 +59,7 @@ public class Commit {
 			sha = line.substring(space + 3); 
 			indexContents.add("blob : " + sha + " " + fileName); 
 		}
+		br.close();
 //		System.out.println(indexContents);
 		Tree pTree = new Tree(indexContents); 
 //		System.out.println(myTree.getSha1(myTree.addedUp));
