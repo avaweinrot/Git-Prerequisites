@@ -53,8 +53,9 @@ public class Tree {
 		writer.close();
 	}
 	
-	private static String getSha1(String starter)
+	static String getSha1(String starter)
 	{
+//		return "asdf";
 	    String sha1 = "";
 	    try
 	    {

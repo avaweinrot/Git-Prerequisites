@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -11,6 +13,7 @@ import java.security.MessageDigest;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 
@@ -18,27 +21,52 @@ public class Commit {
 	private LinkedList<Commit> list=new LinkedList<Commit>();
 	private String summary="";
 	private String author="";
-	private String pTree="";
+	public Tree myTree;
 	private String contents="";
 	private String shaContents = ""; 
-	private String parent=""; 
+	private String parent = ""; 
 	
 	
-	public Commit(String pTr, String summ, String au, String par) throws IOException {
-		pTree=pTr;
+	public Commit(String summ, String au, String par) throws IOException {
 		summary=summ;
 		author=au;
 		parent=par;
+		myTree = generateTree();
+//		System.out.println(myTree.addedUp);
 		contents=getFileContents();
+		shaContents = getFileContentsForSHA();
 		
 		//IF THERE IS A PARENT, CHANGE NEXT COMMIT OF PREVIOUS NODE TO NOW HAVE A NEXT ONE
 		if (!parent.equals("")) {
 			changeParentFile(parent);
 		}
 		writeFile();
-			
+		clearTheFile(); 	
 		
 	}
+	
+	public Tree generateTree() throws IOException
+	{
+		ArrayList<String> indexContents = new ArrayList<String>();
+		BufferedReader br = new BufferedReader(new FileReader("index"));
+		while (br.ready())
+		{
+			indexContents.add(br.readLine()); 
+		}
+//		System.out.println(indexContents);
+		Tree pTree = new Tree(indexContents); 
+//		System.out.println(myTree.getSha1(myTree.addedUp));
+		return pTree;
+	}
+	
+	public static void clearTheFile() throws IOException {
+	    FileWriter fwOb = new FileWriter("index", false); 
+	    PrintWriter pwOb = new PrintWriter(fwOb, false);
+	    pwOb.flush();
+	    pwOb.close();
+	    fwOb.close();
+	}
+	
 	//edits parent file to now have a child
 	public void changeParentFile(String par) throws IOException {
 		BufferedReader buff=new BufferedReader(new FileReader("objects/"+par));
@@ -47,7 +75,8 @@ public class Commit {
 		parContents+=buff.readLine()+"\n";
 		parContents+=buff.readLine()+"\n";
 		//changes third line to be the SHA1 of this current commit (its new child)
-		parContents+="objects/"+generateSHA1(contents)+"\n";
+		parContents+="objects/"+generateSHA1(shaContents)+"\n";
+		System.out.println(parContents); 
 		buff.readLine();
 		parContents+=buff.readLine()+"\n";
 		parContents+=buff.readLine()+"\n";
@@ -64,12 +93,12 @@ public class Commit {
 		
 	}
 	
-	public String getPTree() {
-		return pTree;
-	}
+//	public String getPTree() {
+//		return pTree;
+//	}
 	
 	public String getFileContents(){
-		String contents="objects/"+pTree+"\n";
+		String contents="objects/"+myTree.getSha1(myTree.addedUp)+"\n";
 		if(!parent.equals("")) {
 			contents+="objects/"+parent;
 		}
@@ -106,11 +135,11 @@ public class Commit {
 		return SHA;
 		
     }
-	public static void main (String[]args) throws IOException {
-		Commit com1=new Commit("pTree", "summary 1", "Casey Landecker", "");
-		Commit com2=new Commit("pTree2", "summary 2", "Casey Landecker", "9f95d9dc8a04721c58b9912c0ed9ac84ad46f5d6");
-		Commit com3=new Commit("pTree3", "summary 3", "Casey Landecker", "1fb2c6c15d31f11a2e5955f56c5008028ceb8fae");
-	}
+//	public static void main (String[]args) throws IOException {
+//		Commit com1=new Commit("pTree", "summary 1", "Casey Landecker", "");
+//		Commit com2=new Commit("pTree2", "summary 2", "Casey Landecker", "9f95d9dc8a04721c58b9912c0ed9ac84ad46f5d6");
+//		Commit com3=new Commit("pTree3", "summary 3", "Casey Landecker", "1fb2c6c15d31f11a2e5955f56c5008028ceb8fae");
+//	}
 	
 	public String getDate() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
