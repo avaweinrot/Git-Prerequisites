@@ -49,9 +49,15 @@ public class Commit {
 	{
 		ArrayList<String> indexContents = new ArrayList<String>();
 		BufferedReader br = new BufferedReader(new FileReader("index"));
+		String fileName = "";
+		String sha = ""; 
 		while (br.ready())
 		{
-			indexContents.add(br.readLine()); 
+			String line = br.readLine(); 
+			int space = line.indexOf(' ');
+			fileName = line.substring(0, space);
+			sha = line.substring(space + 3); 
+			indexContents.add("blob : " + sha + " " + fileName); 
 		}
 //		System.out.println(indexContents);
 		Tree pTree = new Tree(indexContents); 
@@ -76,7 +82,7 @@ public class Commit {
 		parContents+=buff.readLine()+"\n";
 		//changes third line to be the SHA1 of this current commit (its new child)
 		parContents+="objects/"+generateSHA1(shaContents)+"\n";
-		System.out.println(parContents); 
+//		System.out.println(parContents); 
 		buff.readLine();
 		parContents+=buff.readLine()+"\n";
 		parContents+=buff.readLine()+"\n";
