@@ -1,8 +1,10 @@
 import java.io.IOException;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -59,6 +61,22 @@ public class Index {
         }
 	}
 	
+	public void createHead()
+	{
+		String fileName= "HEAD";
+		Path newFilePath=Paths.get(fileName);
+		//System.out.println(newFilePath.toAbsolutePath());
+
+		try {
+			Files.writeString(newFilePath, "", StandardCharsets.ISO_8859_1);			
+		}
+		catch(IOException excpetion) {
+			excpetion.printStackTrace();
+			System.out.println(excpetion);
+			System.out.println("Write failed for "+ fileName);
+		}
+	}
+	
 	//THIS IS FULLY UNTESTED
 	//add fileName and file SHA1
 	public void add(String fileName) throws NoSuchAlgorithmException, FileNotFoundException, IOException {
@@ -105,6 +123,7 @@ public class Index {
 		//removes set from hashMap and saves hash
 		String hash=map.get(fileName);
 		map.remove(fileName);
+		map.put("*deleted*", fileName);
 		
 		//deletes file
 		File myObj = new File("objects/"+hash);
